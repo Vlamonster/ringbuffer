@@ -301,7 +301,7 @@ unsafe impl<T> RingBuffer<T> for AllocRingBuffer<T> {
     {
         let offset = range.start.rem_euclid(self.len());
         let normalized_index = self.readptr + offset;
-        let index = crate::mask_modulo(self.buffer_size(), normalized_index);
+        let index = crate::mask_modulo(self.capacity(), normalized_index);
         let buf = unsafe { slice::from_raw_parts(self.buf, self.capacity()) };
         buf[index..]
             .iter()
